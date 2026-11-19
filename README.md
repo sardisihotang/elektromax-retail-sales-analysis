@@ -1,23 +1,23 @@
-# ElektroMax — Retail Sales & Customer Analytics Dashboard
+# ElektroMax — Dashboard Analisis Penjualan Ritel & Pelanggan
 
-> Portfolio project for learning data preparation, data modeling, KPI analysis, and interactive reporting with Microsoft Power BI.
+> Proyek portofolio pembelajaran untuk mempelajari persiapan data, pemodelan data, analisis KPI, dan pembuatan laporan interaktif menggunakan Microsoft Power BI.
 
-## Project overview
-This project explores a retail-electronics dataset for a fictional business named **ElektroMax**. The report is organized into three pages: Executive Overview, Product & Store, and Customer Analysis.
+## Gambaran Umum Proyek
+Proyek ini bertujuan untuk mengeksplorasi dan menganalisis dataset penjualan pada bisnis ritel elektronik fiktif bernama **ElektroMax**. Dashboard disusun menjadi tiga halaman utama, yaitu Executive Overview, Product & Store, dan Customer Analysis.
 
-The workbook supplied for this project contains **7 tables** and covers **1 January 2023–31 December 2025**. The fact table contains **56,748 rows before duplicate-key handling**. The analysis baseline documented here removes duplicate primary keys from the fact table and normalizes transaction-status labels.
+Dataset Excel yang digunakan terdiri dari **7 tabel** dengan periode data **1 Januari 2023–31 Desember 2025**. Tabel transaksi (`FACT_PENJUALAN`) memiliki **56.748 baris sebelum proses penanganan data duplikat**. Proses analisis mencakup penghapusan duplikat berdasarkan primary key dan penyeragaman label status transaksi.
 
-> **Learning disclosure:** This project was developed as a learning exercise using a YouTube tutorial as a learning reference. The tutorial/channel reference should be credited below. The project should not be presented as fully independent work if substantial steps followed the tutorial.
+> **Keterangan pembelajaran:** Proyek ini dibuat sebagai bagian dari proses pembelajaran Data Analytics dengan menggunakan tutorial YouTube sebagai salah satu referensi. Kredit kepada channel tutorial dicantumkan pada bagian referensi pembelajaran.
 
-## Business questions
-- How does net sales performance change over time?
-- Which product subcategories contribute the most to net sales?
-- How does sales contribution differ by store/region?
-- Which customer segments contribute most to net sales?
-- How are transactions distributed by payment method, promotion, and transaction status?
+## Pertanyaan Bisnis
+- Bagaimana perkembangan kinerja penjualan bersih dari waktu ke waktu?
+- Subkategori produk mana yang memberikan kontribusi penjualan bersih terbesar?
+- Bagaimana perbandingan kontribusi penjualan antar toko dan wilayah?
+- Segmen pelanggan mana yang memberikan kontribusi penjualan terbesar?
+- Bagaimana distribusi transaksi berdasarkan metode pembayaran, promosi, dan status transaksi?
 
 ## Dataset
-The supplied Excel workbook contains these sheets:
+File Excel yang digunakan terdiri dari beberapa sheet berikut:
 - `FACT_PENJUALAN`
 - `DIM_PRODUK`
 - `DIM_WAKTU`
@@ -26,76 +26,84 @@ The supplied Excel workbook contains these sheets:
 - `DIM_KARYAWAN`
 - `DIM_PROMOSI`
 
-**Dataset source:** [Add the original public dataset URL and its license/usage terms here.]
+**Sumber Dataset:** [Masukkan URL sumber dataset publik beserta informasi lisensi atau ketentuan penggunaannya.]
 
-**Privacy:** Do not publish the original customer table. It contains direct identifiers such as customer names, email addresses, and phone numbers. Only publish a properly anonymized/aggregated dataset if redistribution is permitted by the source license.
+**Privasi Data:** Dataset pelanggan asli memuat informasi pribadi seperti nama, alamat email, dan nomor telepon. Informasi tersebut tidak boleh dipublikasikan secara terbuka. Gunakan dataset yang telah dianonimkan atau diagregasi, serta pastikan penggunaannya sesuai dengan ketentuan lisensi sumber data.
 
-## Tools
-- Microsoft Excel — workbook inspection
-- Power Query — data cleaning and transformation
-- Power BI Desktop — data model, DAX measures, report pages, and visualization
+## Tools yang Digunakan
+- Microsoft Excel — pemeriksaan dan eksplorasi awal dataset.
+- Power Query — pembersihan dan transformasi data.
+- Power BI Desktop — pemodelan data, pembuatan DAX measures, dashboard, dan visualisasi.
 
-## Data preparation
-The supplied workbook was inspected for data types, missing values, duplicate primary keys, and inconsistent category labels.
+## Persiapan dan Pembersihan Data
+Dataset diperiksa untuk mengetahui tipe data, nilai kosong (*missing values*), duplikasi primary key, serta ketidakkonsistenan penulisan kategori dan status transaksi.
 
-Key observations:
-- `FACT_PENJUALAN` has 56,748 rows and 20 repeated `penjualan_id` values.
-- `DIM_PRODUK` has one repeated `produk_id`.
-- Missing values occur in selected fields; they should be handled according to business meaning rather than deleting every row containing any blank.
-- Transaction status variants `selesai`, `SELESAI`, `Done`, `Sukses`, and `Complete` are mapped to `Selesai`. Return-related variants should be mapped consistently to `Retur` if that mapping is used in the report.
-- Customer direct identifiers must be removed or masked before any public sharing.
+Beberapa temuan dan proses yang dilakukan:
+- Tabel `FACT_PENJUALAN` memiliki 56.748 baris dengan 20 data `penjualan_id` yang terduplikasi.
+- Tabel `DIM_PRODUK` memiliki satu data `produk_id` yang terduplikasi.
+- Ditemukan nilai kosong pada beberapa kolom. Penanganannya perlu disesuaikan dengan kebutuhan analisis dan makna bisnis dari masing-masing kolom.
+- Menyeragamkan variasi status transaksi `selesai`, `SELESAI`, `Done`, `Sukses`, dan `Complete` menjadi `Selesai`. Variasi status retur diseragamkan menjadi `Retur` apabila memiliki makna yang sama.
+- Menghapus atau menyamarkan informasi pribadi pelanggan sebelum dataset digunakan untuk publikasi.
 
-See [`documentation/data_cleaning.md`](documentation/data_cleaning.md) and [`documentation/data_dictionary.md`](documentation/data_dictionary.md).
+Dokumentasi lebih lanjut dapat dilihat pada:
+- [`data_cleaning.md`](documentation/data_cleaning.md)
+- [`data_dictionary.md`](documentation/data_dictionary.md)
 
-## Data model
-The workbook is structured as a fact table (`FACT_PENJUALAN`) with dimension tables for product, date, customer, store, employee, and promotion. See [`documentation/data_model.png`](documentation/data_model.png).
+## Model Data
+Dataset menggunakan struktur satu tabel fakta (`FACT_PENJUALAN`) yang terhubung dengan enam tabel dimensi, yaitu produk, waktu, pelanggan, toko, karyawan, dan promosi.
 
-The diagram documents the intended key relationships based on matching ID columns. Confirm relationship cardinality and filter direction in the actual PBIX model before publishing.
+Diagram model data dapat dilihat pada [`data_model.png`](documentation/data_model.png).
 
-## Dashboard pages
-1. **Executive Overview** — headline KPIs and sales trend.
-2. **Product & Store** — product subcategory, store, region, and margin comparisons.
-3. **Customer Analysis** — customer segment, age group, gender, promotion, and payment-method views.
+Diagram tersebut menggambarkan rancangan hubungan antartabel berdasarkan kolom ID yang saling berhubungan. Kardinalitas relasi dan arah filter perlu disesuaikan serta diverifikasi kembali pada model Power BI yang digunakan.
 
-Screenshots should be placed in `screenshots/`:
+## Halaman Dashboard
+Dashboard terdiri dari tiga halaman utama:
+
+1. **Executive Overview** — menampilkan KPI utama dan tren penjualan untuk memberikan gambaran umum kinerja bisnis.
+2. **Product & Store** — menganalisis kontribusi subkategori produk, performa toko, wilayah, dan perbandingan margin keuntungan.
+3. **Customer Analysis** — menganalisis segmen pelanggan, kelompok umur, jenis kelamin, promosi, dan metode pembayaran.
+
+Screenshot dashboard dapat dilihat pada folder `screenshots/`:
 - `executive_overview.png`
 - `product_store.png`
 - `customer_analysis.png`
 
-## Initial findings from the supplied workbook
-The following baseline is calculated from the workbook after keeping the first row for each `penjualan_id`, normalizing status labels, and including only normalized `Selesai` transactions. It is a **three-year dataset baseline**, not necessarily the same as a dashboard view filtered to 2024.
+## Temuan Awal dari Dataset
+Hasil berikut dihitung dari dataset setelah mempertahankan satu baris untuk setiap `penjualan_id`, menyeragamkan status transaksi, dan hanya memasukkan transaksi berstatus `Selesai`.
 
-- Completed transactions: **48,182**.
-- Net sales (`total_neto`): **Rp247,09 miliar**.
-- Gross profit (`gross_profit`): **Rp76,31 miliar**.
-- Gross profit margin, calculated as gross profit divided by net sales: **30.9%**.
-- Highest net-sales subcategory: **Televisi** (Rp62,92 miliar).
-- Next highest subcategory: **AC** (Rp60,28 miliar).
-- Highest-contributing customer segment label: **Regular** (Rp124,32 miliar). Segment labels with different capitalization (e.g. `Regular` and `REGULAR`) must be standardized before treating them as one segment.
+Angka ini merupakan hasil analisis untuk keseluruhan periode tiga tahun, sehingga dapat berbeda dengan tampilan dashboard yang menggunakan filter tahun tertentu.
 
-These are descriptive findings, not causal conclusions. Recalculate the figures after finalizing all cleaning rules and matching the exact report filters.
+- Jumlah transaksi selesai: **48.182 transaksi**.
+- Total penjualan bersih (`total_neto`): **Rp247,09 miliar**.
+- Total laba kotor (`gross_profit`): **Rp76,31 miliar**.
+- Gross Profit Margin (laba kotor dibagi penjualan bersih): **30,9%**.
+- Subkategori dengan penjualan bersih tertinggi: **Televisi** (Rp62,92 miliar).
+- Subkategori dengan penjualan bersih tertinggi kedua: **AC** (Rp60,28 miliar).
+- Label segmen pelanggan dengan kontribusi penjualan terbesar: **Regular** (Rp124,32 miliar). Variasi penulisan seperti `Regular` dan `REGULAR` perlu diseragamkan sebelum hasil segmentasi ditafsirkan sebagai satu kategori.
 
-## Recommendations to investigate
-- Review inventory and merchandising for the highest-contributing subcategories.
-- Standardize customer segment labels before comparing segment performance.
-- Evaluate promotion effectiveness using a clearly defined comparison group and net-sales/profit measures.
-- Compare stores using consistent date, status, and net-sales filters.
+Temuan tersebut bersifat deskriptif dan tidak menunjukkan hubungan sebab-akibat. Seluruh angka perlu divalidasi kembali setelah aturan pembersihan data ditetapkan dan disesuaikan dengan filter serta definisi KPI pada dashboard.
 
-## Limitations
-- The workbook's public source URL and license have not been provided in this repository draft.
-- The data contains missing values and inconsistent labels; decisions need to be documented and validated.
-- Some customer records contain placeholder values such as `—`; these should not be interpreted as real demographic information.
-- Dashboard values may differ from the three-year baseline if the report is filtered to a particular year or uses different status/KPI definitions.
-- No causal impact of promotions or customer characteristics is established by this descriptive analysis.
+## Rekomendasi untuk Ditindaklanjuti
+- Mengevaluasi persediaan dan strategi penjualan pada subkategori produk dengan kontribusi penjualan tertinggi.
+- Menyeragamkan penulisan segmen pelanggan sebelum melakukan perbandingan antarsegmen.
+- Mengevaluasi efektivitas promosi berdasarkan penjualan bersih dan laba dengan metode perbandingan yang jelas.
+- Membandingkan kinerja toko menggunakan periode, status transaksi, dan definisi penjualan yang konsisten.
 
-## Learning reference
-- YouTube channel: @alvinowrp
+## Keterbatasan Analisis
+- URL sumber dataset publik dan informasi lisensinya belum dicantumkan dalam dokumentasi proyek ini.
+- Dataset memiliki nilai kosong dan penulisan kategori yang tidak konsisten sehingga keputusan pembersihan perlu didokumentasikan dan divalidasi.
+- Beberapa data pelanggan menggunakan nilai placeholder seperti `—` yang tidak boleh dianggap sebagai kategori demografis sebenarnya.
+- Hasil dashboard dapat berbeda dari hasil perhitungan keseluruhan periode apabila menggunakan filter tahun atau definisi KPI yang berbeda.
+- Analisis ini bersifat deskriptif dan belum membuktikan adanya pengaruh sebab-akibat dari promosi maupun karakteristik pelanggan terhadap penjualan.
 
-## How to explore
-1. Open the published interactive Power BI report: [Add public dashboard URL].
-2. Review the screenshots in `screenshots/`.
-3. Open the PBIX file if it is included and you have Power BI Desktop installed.
+## Referensi Pembelajaran
+- Channel YouTube: **@alvinowrp**
 
-## Author
+## Cara Melihat Proyek
+1. Buka dashboard Power BI interaktif melalui tautan berikut: https://lnkd.in/g-3xF4Fp
+2. Lihat dokumentasi dan screenshot dashboard pada folder `screenshots/`.
+3. Buka file `.pbix` menggunakan Microsoft Power BI Desktop apabila file tersebut disertakan dalam repository.
+
+## Pembuat
 **Sardianto Sihotang**  
-https://github.com/sardisihotang · www.linkedin.com/in/sardianto-sihotang-a44350293
+[GitHub](https://github.com/sardisihotang) · [LinkedIn](https://www.linkedin.com/in/sardianto-sihotang-a44350293/)
