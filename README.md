@@ -89,8 +89,7 @@ These are descriptive findings, not causal conclusions. Recalculate the figures 
 - No causal impact of promotions or customer characteristics is established by this descriptive analysis.
 
 ## Learning reference
-- YouTube channel: [Add channel name]
-- Tutorial video: [Add video title and URL]
+- YouTube channel: @alvinowrp
 
 ## How to explore
 1. Open the published interactive Power BI report: [Add public dashboard URL].
