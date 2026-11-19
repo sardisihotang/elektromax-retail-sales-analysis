@@ -99,4 +99,4 @@ These are descriptive findings, not causal conclusions. Recalculate the figures 
 
 ## Author
 **Sardianto Sihotang**  
-[GitHub profile URL] · [LinkedIn profile URL]
+https://github.com/sardisihotang · www.linkedin.com/in/sardianto-sihotang-a44350293
